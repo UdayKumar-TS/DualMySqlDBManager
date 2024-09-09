@@ -1,0 +1,73 @@
+@EnableTransactionManagement
+It is an annotation in Spring that is used to enable annotation-driven transaction
+management in a Spring application. It is typically placed on a configuration class
+to allow Spring to manage transactions declaratively using annotations
+like @Transactional.
+
+Purpose and Usage
+Enables Transaction Management: It tells Spring to look for methods annotated with
+@Transactional and manage transactions automatically. Spring will begin and
+commit/rollback transactions based on the annotations.
+.......................................................................................
+@EnableJpaRepositories
+It is an annotation in Spring used to enable the creation of Spring Data JPA
+repositories. It tells Spring to scan for interfaces that extend JpaRepository
+or other repository interfaces and create implementations for them at runtime.
+
+Purpose of @EnableJpaRepositories
+Repository Scanning: It enables Spring to scan a specified package (or the base package)
+for JPA repositories (interfaces that extend JpaRepository or CrudRepository)
+ and generate implementations for those interfaces.
+
+Repository Configuration: It helps configure various settings for repositories,
+such as:
+
+The location of the repository interfaces.
+The EntityManagerFactory and TransactionManager to be used.
+Custom repository implementations if any.
+Simplifies Data Access: With Spring Data JPA, you don’t need to write boilerplate code
+for CRUD operations. The @EnableJpaRepositories annotation integrates JPA with Spring Boot,
+so repository interfaces like JpaRepository are automatically implemented.
+.........................................................................................
+
+In Spring Boot and Spring Data JPA, the entityManagerFactoryRef attribute is used in the
+@EnableJpaRepositories annotation to specify which EntityManagerFactory bean should
+be used by a particular set of JPA repositories.
+This is especially useful when you have multiple databases or multiple persistence units
+configured in your application.
+
+An EntityManagerFactory is part of JPA (Java Persistence API) and is used to manage the
+persistence layer (like connecting to the database and performing CRUD operations)
+for the entities (Java classes that map to database tables).
+
+Why Use entityManagerFactoryRef?
+Multiple Databases: In some applications, you may need to connect to multiple databases
+(e.g., one for user data, another for product data). Each database typically has its
+own EntityManagerFactory.
+
+Avoid Conflicts: When you have more than one EntityManagerFactory, you need to tell
+Spring which one to use for each repository, which is where the entityManagerFactoryRef
+comes into play.
+
+Custom Configurations: It allows you to create different JPA configurations
+(e.g., transaction management, persistence context) for different data sources.
+
+
+Note: to specify different entityManagerfactory for each repository as we know each
+      repo as its own EntityManagerFactory
+.......................................................................................................
+Note: The transactionManagerRef  deals same as EntityManagerFactory
+
+The transactionManagerRef attribute in the @EnableJpaRepositories annotation
+specifies which TransactionManager bean should be used by the repositories.
+It is important when dealing with multiple databases or transaction management
+configurations in Spring Boot applications.
+
+Just like entityManagerFactoryRef, transactionManagerRef helps Spring determine
+which transaction manager to use for a specific set of JPA repositories.
+This is especially useful when you have multiple databases or need to manage
+transactions for different data sources separately.
+........................................................................................
+Multiple Databases: When you have more than one database, you need to configure
+separate EntityManagerFactory beans, DataSource beans, and TransactionManager beans
+for each database.
